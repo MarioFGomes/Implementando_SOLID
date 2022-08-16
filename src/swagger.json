@@ -1,0 +1,99 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "title":"Implementando SOLID",
+        "description":"Este é uma aplicação para testar os conhecimentos sobre SOLID e Swagger proposto pela Rochetseat",
+        "version":"1.0.0",
+        "contact":{
+            "email": "marioferreiragomes333@gmail.com"
+        }
+    },
+    "paths":{
+        "/users":{
+            "post":{
+                "tags":["Users"],
+                "summary":"Create a User",
+                "description":"Create a new User",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    }
+                                },
+                                "example":{
+                                    "name":"Mário Gomes",
+                                    "email":"marioferreiragomes333@gmail"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Created"
+                    },
+                    "400":{
+                        "description":"can not create user"
+                    }
+                }
+            },
+            "get":{
+                "tags":["Users"],
+                "summary":"List all Users",
+                "description":"List all users of application",
+                "parameters":{
+                    "- in":"header",
+                    "name": "X-Request-user_id",
+                    "schema":{
+                        "type": "string",
+                        "format": "uuid",
+                        "required": true
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "array",
+                                    "items":{
+                                        "type": "object",
+                                        "properties":{
+                                            "name":{
+                                                "type":"string"
+                                            },
+
+                                            "admin":{
+                                                "type":"boolean"
+                                            },
+
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "created_at":{
+                                                "type": "string",
+                                                "format": "date  # or date-time"
+                                            },
+                                            "updated_at":{
+                                                "type": "string",
+                                                "format": "date  # or date-time"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
