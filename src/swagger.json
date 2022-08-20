@@ -15,6 +15,7 @@
                 "summary":"Create a User",
                 "description":"Create a new User",
                 "requestBody":{
+                    "required":true,
                     "content":{
                         "application/json":{
                             "schema":{
@@ -44,48 +45,106 @@
                     }
                 }
             },
+
+            
             "get":{
                 "tags":["Users"],
                 "summary":"List all Users",
                 "description":"List all users of application",
-                "parameters":{
-                    "- in":"header",
-                    "name": "X-Request-user_id",
+                "parameters":[
+                    {
+                   "name": "user_id",
+                   "in": "header",
+                    "description": "User ID for filter users",
+                    "required": true, 
                     "schema":{
                         "type": "string",
-                        "format": "uuid",
-                        "required": true
+                        "format": "uuid"                      
                     }
-                },
+                }
+            ],
                 "responses":{
                     "200":{
                         "description":"Success",
                         "content":{
                             "application/json":{
-                                "schema":{
-                                    "type": "array",
-                                    "items":{
+                                "schema":{                                  
                                         "type": "object",
                                         "properties":{
+                                            " id":{
+                                                "type":"string"
+                                            },
                                             "name":{
                                                 "type":"string"
                                             },
-
                                             "admin":{
-                                                "type":"boolean"
+                                            "type":"boolean"
                                             },
-
                                             "email":{
                                                 "type":"string"
                                             },
                                             "created_at":{
-                                                "type": "string",
-                                                "format": "date  # or date-time"
+                                                "type":"string"
                                             },
                                             "updated_at":{
-                                                "type": "string",
-                                                "format": "date  # or date-time"
+                                                "type":"string"
                                             }
+                                        }
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/users/{user_id}/admin":{
+
+            "patch":{
+                "tags":["Users"],
+                "summary":"Change to admin",
+                "description":"Change User to user admin",
+                "parameters": [
+                    {
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "User ID for filter users",
+                    "required": true,                
+                    "schema": {
+                        "type": "string",
+                        "format": "uuid"                       
+                    }
+                    }
+                    ],
+                "responses": {
+                    "400":{
+                        "description": "Error to change user for admin"
+                    },
+                    "200":{
+                        "description": "OK",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        " id":{
+                                            "type":"string"
+                                        },
+                                        "name":{
+                                            "type":"string"
+                                        },
+                                        "admin":{
+                                        "type":"boolean"
+                                        },
+                                        "email":{
+                                            "type":"string"
+                                        },
+                                        "created_at":{
+                                            "type":"string"
+                                        },
+                                        "updated_at":{
+                                            "type":"string"
                                         }
                                     }
                                 }
@@ -93,7 +152,64 @@
                         }
                     }
                 }
+
             }
-        }
+        },
+
+        "/users/{user_id}":{
+            "get":{
+                "tags":["Users"],
+                "summary":"Show user profile",
+                "description":"Show user profile",              
+                "parameters": [
+                    {
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "User ID for filter profile user",
+                    "required": true,                
+                    "schema": {
+                        "type": "string",
+                        "format": "uuid"                       
+                    }
+                    }
+                    ],
+                    "responses": {
+                        "400":{
+                            "description": "Error to found user profile"
+                        },
+                        "200":{
+                            "description": "OK",
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "properties":{
+                                            " id":{
+                                                "type":"string"
+                                            },
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "admin":{
+                                            "type":"boolean"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "created_at":{
+                                                "type":"string"
+                                            },
+                                            "updated_at":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+            }
+        }      
     }
+   
 }
